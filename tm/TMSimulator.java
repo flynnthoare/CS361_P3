@@ -25,6 +25,8 @@ public class TMSimulator {
         TM turingMachine = readTMFile(file);
         turingMachine.runMachine();
         System.out.println(turingMachine);
+
+        // On my computer, the test 5 file runs in just over a second
     }
 
     private static void usageMsg() {

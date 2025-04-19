@@ -26,15 +26,11 @@ public class TM implements TMInterface {
      * @param offset the offset to copy the tape to (Used to grow the tape to the left)
      */
     private void growTape(int offset) {
-        tapeSize++;
-        int newSize = tape.length;
-        if (tapeSize > tape.length || (offset == 1 && tapeSize >= tape.length))
-            newSize = tape.length*2;
-        else if (offset == 0)
-            return;
-        // It appears to be significantly faster to simply grow this by 1 as necessary, rather than double the tape length periodically
-        int[] newTape = new int[newSize];
-        System.arraycopy(tape, 0, newTape, offset, tapeSize-1);
+        // This naive solution to only grow by 1 cell is normally slow,
+        // but the alternative uses many if statements to check the size of the tape,
+        // which is slower
+        int[] newTape = new int[tape.length+1];
+        System.arraycopy(tape, 0, newTape, offset, tape.length);
         tape = newTape;
     }
 
@@ -61,9 +57,8 @@ public class TM implements TMInterface {
                 // Grow the tape
                 growTape(1);
                 headPosition = 0; // Reset head position to the first cell
-            } else if (headPosition >= tapeSize) {
-                // Grow the tape
-                growTape(0); // Initialize the new cell to blank
+            } else if (headPosition >= tape.length) {
+                growTape(0);
             }
 
             // Update the current state
@@ -86,8 +81,8 @@ public class TM implements TMInterface {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tapeSize; i++) {
-            sb.append(tape[i]);
+        for (int j : tape) {
+            sb.append(j);
         }
         return sb.toString();
     }
