@@ -1,7 +1,5 @@
 package tm;
 
-import java.util.ArrayList;
-
 public interface TMInterface {
     // The states are given by a single number n, where the states are numbered from 0 to n-1
     // The first state is the start state, and the last state is the accept state

@@ -1,17 +1,15 @@
 package tm;
 
-import java.util.ArrayList;
-
 public class TM implements TMInterface {
     private final int numStates;
     private final int[][][] transitionTable;
     private int[] tape;
-    private int tapeLength;
+    private int tapeSize;
 
     public TM(int numStates, int numSymbols) {
         this.numStates = numStates;
         this.tape = new int[1];
-        this.tapeLength = 1;
+        this.tapeSize = 1;
         // Initialize the transition table
         this.transitionTable = new int[numStates][numSymbols+1][3];
     }
@@ -23,10 +21,20 @@ public class TM implements TMInterface {
         transitionTable[currentState][currentSymbol][2] = direction;
     }
 
+    /**
+     * Grows the tape by 1 cell
+     * @param offset the offset to copy the tape to (Used to grow the tape to the left)
+     */
     private void growTape(int offset) {
+        tapeSize++;
+        int newSize = tape.length;
+        if (tapeSize > tape.length || (offset == 1 && tapeSize >= tape.length))
+            newSize = tape.length*2;
+        else if (offset == 0)
+            return;
         // It appears to be significantly faster to simply grow this by 1 as necessary, rather than double the tape length periodically
-        int[] newTape = new int[tape.length+1];
-        System.arraycopy(tape, 0, newTape, offset, tape.length);
+        int[] newTape = new int[newSize];
+        System.arraycopy(tape, 0, newTape, offset, tapeSize-1);
         tape = newTape;
     }
 
@@ -53,10 +61,9 @@ public class TM implements TMInterface {
                 // Grow the tape
                 growTape(1);
                 headPosition = 0; // Reset head position to the first cell
-            } else if (headPosition >= tape.length) {
+            } else if (headPosition >= tapeSize) {
                 // Grow the tape
-                growTape(0);
-                tape[headPosition] = 0; // Initialize the new cell to blank
+                growTape(0); // Initialize the new cell to blank
             }
 
             // Update the current state
@@ -79,8 +86,8 @@ public class TM implements TMInterface {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i : tape) {
-            sb.append(i);
+        for (int i = 0; i < tapeSize; i++) {
+            sb.append(tape[i]);
         }
         return sb.toString();
     }
