@@ -27,7 +27,7 @@ public class TMSimulator {
         }
 
         // Go to a new method to read the TM file
-        TM turingMachine = readTMFile(file);
+        TM turingMachine = readTMFile(file, inputString);
         System.out.println(turingMachine.toString());
     }
 
@@ -36,7 +36,7 @@ public class TMSimulator {
         exit(1);
     }
 
-    private static TM readTMFile(File file) {
+    private static TM readTMFile(File file, String inputString) {
         TM turingMachine = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             // Step 1: Read the number of states, 0 to n-1
@@ -47,7 +47,7 @@ public class TMSimulator {
             line = reader.readLine();
             int numSymbols = Integer.parseInt(line);
 
-            turingMachine = new TM(numStates, numSymbols);
+            turingMachine = new TM(numStates, numSymbols, inputString);
 
             // Step 3: Read the transition table, which will have n*m rows and 3 columns
             // Column 1: next state

@@ -6,10 +6,14 @@ public class TM implements TMInterface {
     private final int numStates;
     private final int numSymbols;
     private final ArrayList<ArrayList<ArrayList<Integer>>> transitionTable;
+    private String tape;
 
-    public TM(int numStates, int numSymbols) {
+    public TM(int numStates, int numSymbols, String initialString) {
         this.numStates = numStates;
         this.numSymbols = numSymbols;
+        this.tape = initialString;
+
+        // Initialize the transition table
         this.transitionTable = new ArrayList<>(numStates);
         for (int i = 0; i < numStates-1; i++) {
             transitionTable.add(new ArrayList<>(numSymbols));
@@ -30,6 +34,7 @@ public class TM implements TMInterface {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        // Add the transition table to the string
         sb.append("Transition Table:\n");
         for (int i = 0; i < numStates-1; i++) {
             sb.append("State ").append(i).append(":\n");
@@ -40,6 +45,12 @@ public class TM implements TMInterface {
                   .append(", Write Symbol: ").append(transition.get(1))
                   .append(", Direction: ").append(transition.get(2) == -1 ? "L" : "R").append("\n");
             }
+        }
+
+        // Add the tape to the string
+        sb.append("Tape: |");
+        for (int i = 0; i < tape.length(); i++) {
+            sb.append(tape.charAt(i)).append("|");
         }
         return sb.toString();
     }
