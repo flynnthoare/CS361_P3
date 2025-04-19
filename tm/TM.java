@@ -62,6 +62,7 @@ public class TM implements TMInterface {
             // Update the current state
             currentState = nextState;
         }
+        System.out.println(getTape(headPosition));
     }
 
     public String getTape(int head) {
