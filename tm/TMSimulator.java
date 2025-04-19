@@ -29,6 +29,8 @@ public class TMSimulator {
         // Go to a new method to read the TM file
         TM turingMachine = readTMFile(file, inputString);
         System.out.println(turingMachine.toString());
+        turingMachine.run();
+        System.out.println(turingMachine);
     }
 
     private static void usageMsg() {

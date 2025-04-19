@@ -25,6 +25,11 @@ public interface TMInterface {
     public void addTransition(int currentState, int currentSymbol, int nextState, int writeSymbol, int direction);
 
     /**
+     * Runs the TM on the input string
+     */
+    public void run();
+
+    /**
      * Returns a string representation of the TM
      * @return string representation of the TM
      */
