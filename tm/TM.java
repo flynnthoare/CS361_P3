@@ -38,7 +38,7 @@ public class TM implements TMInterface {
         int headPosition = 0;
 
         while (currentState < numStates - 1) {
-            // Read the current symbol
+            System.out.println(getTape(headPosition));
             int currentSymbol = tape.charAt(headPosition) - '0';
 
             // Get the transition for the current state and symbol
@@ -64,6 +64,21 @@ public class TM implements TMInterface {
         }
     }
 
+    public String getTape(int head) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tape: |");
+        for (int i = 0; i < tape.length(); i++) {
+            sb.append(tape.charAt(i)).append("|");
+        }
+        // Add the head pointer
+        sb.append("\n       ");
+        for (int i = 0; i < head; i++) {
+            sb.append("  ");
+        }
+        sb.append("^");
+        return sb.toString();
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         // Add the transition table to the string
@@ -80,10 +95,7 @@ public class TM implements TMInterface {
         }
 
         // Add the tape to the string
-        sb.append("Tape: |");
-        for (int i = 0; i < tape.length(); i++) {
-            sb.append(tape.charAt(i)).append("|");
-        }
+        sb.append(getTape(0));
         return sb.toString();
     }
 }
