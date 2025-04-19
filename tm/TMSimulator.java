@@ -11,7 +11,7 @@ import static java.lang.System.exit;
 public class TMSimulator {
 
     public static void main(String[] args) {
-        if (args.length != 2) {
+        if (args.length != 1) {
             usageMsg();
         }
         String filepath = args[0];
@@ -20,15 +20,10 @@ public class TMSimulator {
             System.out.println("File does not exist: " + filepath);
             usageMsg();
         }
-        String inputString = args[1];
-        if (inputString.isEmpty()) {
-            System.out.println("Input string is empty");
-            usageMsg();
-        }
 
         // Go to a new method to read the TM file
-        TM turingMachine = readTMFile(file, inputString);
-        turingMachine.run();
+        TM turingMachine = readTMFile(file);
+        turingMachine.runMachine();
         System.out.println(turingMachine);
     }
 
@@ -37,7 +32,7 @@ public class TMSimulator {
         exit(1);
     }
 
-    private static TM readTMFile(File file, String inputString) {
+    private static TM readTMFile(File file) {
         TM turingMachine = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             // Step 1: Read the number of states, 0 to n-1
@@ -48,7 +43,7 @@ public class TMSimulator {
             line = reader.readLine();
             int numSymbols = Integer.parseInt(line);
 
-            turingMachine = new TM(numStates, numSymbols, inputString);
+            turingMachine = new TM(numStates, numSymbols);
 
             // Step 3: Read the transition table, which will have n*m rows and 3 columns
             // Column 1: next state

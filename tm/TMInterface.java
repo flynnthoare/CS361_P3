@@ -27,7 +27,13 @@ public interface TMInterface {
     /**
      * Runs the TM on the input string
      */
-    public void run();
+    public void runMachine();
+
+    /**
+     * Returns the formatted tape of the machine with the head position
+     * @return the tape string
+     */
+    public String getTapeString(int head);
 
     /**
      * Returns a string representation of the TM
