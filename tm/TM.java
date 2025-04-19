@@ -39,7 +39,8 @@ public class TM implements TMInterface {
 
     @Override
     public void runMachine() {
-        long startTime = System.currentTimeMillis();
+        // Time tracking for performance testing
+//        long startTime = System.currentTimeMillis();
         int currentState = 0;
         int headPosition = 0;
 
@@ -69,11 +70,10 @@ public class TM implements TMInterface {
             // Update the current state
             currentState = nextState;
         }
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time taken: " + (endTime - startTime) + " ms");
 
-        // Baseline: 1190 ms
-        // Flat transition table: 1046 ms
+        // Time tracking for performance testing
+//        long endTime = System.currentTimeMillis();
+//        System.out.println("Time taken: " + (endTime - startTime) + " ms");
     }
 
     public String getTapeString(int head) {
