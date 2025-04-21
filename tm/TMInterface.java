@@ -1,16 +1,16 @@
 package tm;
 
+/**
+ * Defines the interface for a deterministic Turing Machine.
+ * Specifies the required operations for adding transitions, 
+ * running the machine, and retrieving its tape state or string output.
+ *
+ * Implemented by the TM class to perform actual TM logic and simulation.
+ *
+ * @author Nick Bortz & Flynn Hoare
+ * @since 2025-04-21
+ */
 public interface TMInterface {
-    // The states are given by a single number n, where the states are numbered from 0 to n-1
-    // The first state is the start state, and the last state is the accept state
-    // I don't think there's a need to have a state class, these can just be used as indices in the transition table
-
-    // The TM's alphabet is given by a single number m, where the alphabet is numbered from 0 to m-1
-    // 0 is the blank symbol, and 1 to m are the input symbols
-
-    // The TM's transition table has the current state and the current symbol as the key
-    // The transition table will hold the next state, the symbol to write, and the direction to move
-    // Each state should have a transition to every other state, except the accept state, which will have no transitions
 
     /**
      * Adds a transition to the TM
@@ -24,11 +24,12 @@ public interface TMInterface {
 
     /**
      * Runs the TM on the input string
-     */
+     */ 
     public void runMachine();
 
     /**
      * Returns the formatted tape of the machine with the head position
+     * @param head The current index of the tape head
      * @return the tape string
      */
     public String getTapeString(int head);

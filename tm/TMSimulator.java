@@ -8,6 +8,14 @@ import java.util.Arrays;
 
 import static java.lang.System.exit;
 
+/**
+ * Handles the execution of a Turing Machine by reading its configuration from a file,
+ * initializing the machine, and running it to completion. Serves as the main
+ * entry point for the simulation and manages file parsing and transition setup.
+ *
+ * @author Nick Bortz & Flynn Hoare
+ * @since 2025-04-21
+ */
 public class TMSimulator {
 
     public static void main(String[] args) {
@@ -29,11 +37,23 @@ public class TMSimulator {
         // On my computer, the test 5 file runs in just over a second
     }
 
+    /**
+     * Prints a usage message to the console and exits the program.
+     * Called when the user provides invalid or missing command-line arguments.
+     */
     private static void usageMsg() {
         System.out.println("Usage: java TMSimulator <tm-file> <input-string>");
         exit(1);
     }
 
+    /**
+     * Reads a Turing Machine input specifications from a file.
+     * Parses the number of states and symbols, then reads the full transition table.
+     * Builds and returns a TM object initialized with the transition function.
+     *
+     * @param file The file containing the TM definition
+     * @return A fully initialized TM object
+     */
     private static TM readTMFile(File file) {
         TM turingMachine = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

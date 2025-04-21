@@ -1,5 +1,16 @@
 package tm;
 
+/**
+ * Models the core logic of a deterministic Turing Machine.
+ * Maintains state transitions, simulates tape operations, and
+ * performs head movement during execution.
+ *
+ * Used by the TMSimulator to run Turing Machine computations
+ * based on input files.
+ *
+ * @author Nick Bortz & Flynn Hoare
+ * @since 2025-04-21
+ */
 public class TM implements TMInterface {
     private final int numStates;
     private final int numSymbols;
@@ -15,6 +26,7 @@ public class TM implements TMInterface {
     }
 
 
+    
     @Override
     public void addTransition(int currentState, int currentSymbol, int nextState, int writeSymbol, int direction) {
         // Get index to flattened transition table
@@ -39,8 +51,6 @@ public class TM implements TMInterface {
 
     @Override
     public void runMachine() {
-        // Time tracking for performance testing
-//        long startTime = System.currentTimeMillis();
         int currentState = 0;
         int headPosition = 0;
 
@@ -70,10 +80,6 @@ public class TM implements TMInterface {
             // Update the current state
             currentState = nextState;
         }
-
-        // Time tracking for performance testing
-//        long endTime = System.currentTimeMillis();
-//        System.out.println("Time taken: " + (endTime - startTime) + " ms");
     }
 
     public String getTapeString(int head) {
